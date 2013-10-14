@@ -15,6 +15,10 @@ LIBS         += -lqlcplusengine
 LIBS         += -lqlcplusui
 LIBS         += -lqlcpluswebaccess
 
+!win32:QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/../ui/src\''
+!win32:QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/../engine/src\''
+!win32:QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/../webaccess\''
+
 win32:HEADERS += ../ui/src/debugbox.h
 macx:HEADERS += ../ui/src/debugbox.h
 
