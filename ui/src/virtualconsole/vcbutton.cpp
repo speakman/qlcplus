@@ -565,6 +565,8 @@ QString VCButton::actionToString(VCButton::Action action)
         return QString(KXMLQLCVCButtonActionBlackout);
     else if (action == StopAll)
         return QString(KXMLQLCVCButtonActionStopAll);
+    else if (action == Momentary)
+        return QString(KXMLQLCVCButtonActionMomentary);
     else
         return QString(KXMLQLCVCButtonActionToggle);
 }
@@ -577,6 +579,8 @@ VCButton::Action VCButton::stringToAction(const QString& str)
         return Blackout;
     else if (str == KXMLQLCVCButtonActionStopAll)
         return StopAll;
+    else if (str == KXMLQLCVCButtonActionMomentary)
+        return Momentary;
     else
         return Toggle;
 }
@@ -636,7 +640,7 @@ void VCButton::pressFunction()
         return;
 
     Function* f = NULL;
-    if (m_action == Toggle)
+    if (m_action == Toggle || m_action == Momentary)
     {
         f = m_doc->function(m_function);
         if (f == NULL)
@@ -701,6 +705,13 @@ void VCButton::releaseFunction()
         Function* f = m_doc->function(m_function);
         if (f != NULL)
             f->unFlash(m_doc->masterTimer());
+    }
+
+    if (m_action == Momentary && isOn() == true)
+    {
+        Function* f = m_doc->function(m_function);
+        if (f != NULL)
+            f->stop();
     }
 }
 
@@ -965,7 +976,7 @@ void VCButton::paintEvent(QPaintEvent* e)
         option.state = QStyle::State_Raised;
 
     /* Custom icons are always enabled, to see them in full color also in design mode */
-    if (m_action == Toggle || m_action == Flash)
+    if (m_action == Toggle || m_action == Flash || m_action == Momentary)
         option.state |= QStyle::State_Enabled;
 
     /* Icon */

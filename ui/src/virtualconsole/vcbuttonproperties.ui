@@ -44,6 +44,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QRadioButton" name="m_momentary">
+        <property name="text">
+         <string>Momentary function</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QRadioButton" name="m_flash">
         <property name="toolTip">
          <string>Flash the assigned function with this button</string>

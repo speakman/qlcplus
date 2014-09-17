@@ -47,6 +47,7 @@ class QEvent;
 
 #define KXMLQLCVCButtonAction "Action"
 #define KXMLQLCVCButtonActionFlash "Flash"
+#define KXMLQLCVCButtonActionMomentary "Momentary"
 #define KXMLQLCVCButtonActionToggle "Toggle"
 #define KXMLQLCVCButtonActionBlackout "Blackout"
 #define KXMLQLCVCButtonActionStopAll "StopAll"
@@ -235,11 +236,12 @@ protected slots:
 public:
     /**
      * Toggle: Start/stop the assigned function.
+     * Momentary: Run the assigned function only while hold down
      * Flash: Keep the function running as long as the button is kept down.
      * Blackout: Toggle blackout on/off.
      * StopAll: Stop all functions (panic button).
      */
-    enum Action { Toggle, Flash, Blackout, StopAll };
+    enum Action { Toggle, Momentary, Flash, Blackout, StopAll };
 
     /** Set this button's action */
     void setAction(Action action);
